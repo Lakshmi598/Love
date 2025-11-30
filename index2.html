@@ -1,0 +1,612 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Website to My Love</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <style>
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+      font-family: system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+    }
+
+    body {
+      min-height: 100vh;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      background: linear-gradient(135deg, #ffd1e3, #ffb6c9);
+      padding: 20px;
+      position: relative;
+      overflow: hidden;
+    }
+
+    /* Animated background circles */
+    body::before,
+    body::after {
+      content: "";
+      position: absolute;
+      border-radius: 50%;
+      opacity: 0.3;
+      animation: float 20s infinite ease-in-out;
+    }
+
+    body::before {
+      width: 300px;
+      height: 300px;
+      background: radial-gradient(circle, #ff9ec4, transparent);
+      top: -150px;
+      left: -150px;
+      animation-delay: 0s;
+    }
+
+    body::after {
+      width: 400px;
+      height: 400px;
+      background: radial-gradient(circle, #ffb6d9, transparent);
+      bottom: -200px;
+      right: -200px;
+      animation-delay: 5s;
+    }
+
+    @keyframes float {
+      0%, 100% { transform: translate(0, 0) scale(1); }
+      25% { transform: translate(50px, -50px) scale(1.1); }
+      50% { transform: translate(-30px, 30px) scale(0.9); }
+      75% { transform: translate(40px, 40px) scale(1.05); }
+    }
+
+    .wrapper {
+      background: #ffe6ef;
+      border-radius: 30px;
+      padding: 30px 20px 40px;
+      max-width: 900px;
+      width: 100%;
+      box-shadow: 0 20px 40px rgba(0, 0, 0, 0.15);
+      position: relative;
+      overflow: hidden;
+    }
+
+    .wrapper::before {
+      content: "♡";
+      position: absolute;
+      font-size: 120px;
+      color: rgba(255,255,255,0.4);
+      top: -30px;
+      right: 30px;
+    }
+
+    h1.title {
+      text-align: center;
+      font-size: 28px;
+      margin-bottom: 10px;
+      color: #ff4b7d;
+    }
+
+    .subtitle {
+      text-align: center;
+      font-size: 14px;
+      color: #aa6178;
+      margin-bottom: 25px;
+    }
+
+    /* Tabs */
+    .tabs {
+      display: flex;
+      justify-content: center;
+      gap: 10px;
+      margin-bottom: 25px;
+      flex-wrap: wrap;
+    }
+
+    .tab-btn {
+      border: none;
+      padding: 8px 18px;
+      border-radius: 20px;
+      background: #ffc7da;
+      color: #7a2845;
+      font-size: 14px;
+      cursor: pointer;
+      box-shadow: 0 4px 12px rgba(0,0,0,0.10);
+      transition: all 0.2s ease;
+    }
+
+    .tab-btn.active {
+      background: #ff5c8a;
+      color: #fff;
+      transform: translateY(-1px);
+    }
+
+    /* Content card */
+    .card {
+      background: #ffffff;
+      border-radius: 20px;
+      padding: 25px 20px;
+      max-width: 700px;
+      margin: 0 auto;
+      box-shadow: 0 15px 30px rgba(0, 0, 0, 0.08);
+    }
+
+    .card h2 {
+      font-size: 20px;
+      margin-bottom: 10px;
+      color: #ff4b7d;
+    }
+
+    .card small {
+      color: #999;
+    }
+
+    .tab-content {
+      display: none;
+      animation: fadeIn 0.4s ease;
+    }
+
+    .tab-content.active {
+      display: block;
+    }
+
+    /* Love Letter */
+    .love-letter {
+      line-height: 1.7;
+      font-size: 15px;
+      color: #5a2540;
+      margin-top: 10px;
+      white-space: pre-line;
+    }
+
+    /* Music list */
+    .song-list {
+      margin-top: 18px;
+    }
+
+    .song {
+      background: #fff5f8;
+      border-radius: 12px;
+      padding: 12px 14px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      margin-bottom: 10px;
+    }
+
+    .song-info {
+      display: flex;
+      flex-direction: column;
+      gap: 2px;
+    }
+
+    .song-title {
+      font-size: 15px;
+      font-weight: 600;
+      color: #5a2540;
+    }
+
+    .song-artist {
+      font-size: 12px;
+      color: #a47c8f;
+    }
+
+    .song-icon {
+      font-size: 18px;
+    }
+
+    /* Notes */
+    .note-list {
+      margin-top: 15px;
+      list-style: none;
+    }
+
+    .note-list li {
+      background: #fff5f8;
+      padding: 10px 12px;
+      border-radius: 10px;
+      font-size: 14px;
+      color: #5a2540;
+      margin-bottom: 8px;
+    }
+
+    /* Gallery */
+    .gallery {
+      margin-top: 15px;
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(120px, 1fr));
+      gap: 10px;
+    }
+
+    .gallery-item {
+      background: #fff5f8;
+      border-radius: 12px;
+      padding: 10px;
+      text-align: center;
+      font-size: 13px;
+      color: #5a2540;
+      overflow: hidden;
+    }
+
+    .gallery-item img {
+      width: 100%;
+      height: 150px;
+      object-fit: cover;
+      border-radius: 8px;
+      margin-bottom: 8px;
+    }
+
+    /* Modal styles */
+    .modal {
+      display: none;
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      background: rgba(0, 0, 0, 0.7);
+      z-index: 1000;
+      justify-content: center;
+      align-items: center;
+      padding: 20px;
+      animation: fadeIn 0.3s ease;
+    }
+
+    .modal.active {
+      display: flex;
+    }
+
+    .modal-content {
+      background: #fff;
+      border-radius: 20px;
+      padding: 30px;
+      max-width: 600px;
+      width: 100%;
+      max-height: 80vh;
+      overflow-y: auto;
+      position: relative;
+      animation: slideUp 0.4s ease;
+      box-shadow: 0 20px 60px rgba(0, 0, 0, 0.3);
+    }
+
+    .close-btn {
+      position: absolute;
+      top: 15px;
+      right: 20px;
+      font-size: 30px;
+      color: #ff4b7d;
+      cursor: pointer;
+      background: none;
+      border: none;
+      width: 40px;
+      height: 40px;
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      transition: all 0.2s ease;
+    }
+
+    .close-btn:hover {
+      background: #ffe6ef;
+      transform: rotate(90deg);
+    }
+
+    .read-letter-btn {
+      display: inline-block;
+      margin-top: 15px;
+      padding: 10px 20px;
+      background: #ff5c8a;
+      color: white;
+      border: none;
+      border-radius: 20px;
+      cursor: pointer;
+      font-size: 14px;
+      box-shadow: 0 4px 12px rgba(255, 92, 138, 0.3);
+      transition: all 0.2s ease;
+    }
+
+    .read-letter-btn:hover {
+      background: #ff4b7d;
+      transform: translateY(-2px);
+      box-shadow: 0 6px 16px rgba(255, 92, 138, 0.4);
+    }
+
+    /* Envelope styles */
+    .envelope-container {
+      display: flex;
+      justify-content: center;
+      margin-top: 30px;
+      position: relative;
+    }
+
+    .envelope {
+      width: 250px;
+      height: 180px;
+      position: relative;
+      cursor: pointer;
+      transition: transform 0.3s ease;
+    }
+
+    .envelope:hover {
+      transform: scale(1.05);
+    }
+
+    .envelope-back {
+      width: 250px;
+      height: 180px;
+      background: #e74c3c;
+      border-radius: 10px;
+      position: relative;
+      box-shadow: 0 10px 30px rgba(0, 0, 0, 0.2);
+      overflow: hidden;
+    }
+
+    .envelope-flap {
+      width: 0;
+      height: 0;
+      border-left: 125px solid transparent;
+      border-right: 125px solid transparent;
+      border-top: 90px solid #c0392b;
+      position: absolute;
+      top: 0;
+      left: 0;
+      border-radius: 10px 10px 0 0;
+      transform-origin: top center;
+      transition: transform 0.5s ease;
+      z-index: 2;
+    }
+
+    .envelope.open .envelope-flap {
+      transform: rotateX(180deg);
+    }
+
+    .envelope-seal {
+      width: 50px;
+      height: 50px;
+      background: #f9d5a7;
+      border-radius: 50%;
+      position: absolute;
+      bottom: -10px;
+      left: 50%;
+      transform: translateX(-50%);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 12px;
+      color: #8b6f47;
+      font-weight: bold;
+      box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2);
+      border: 3px solid #d4a574;
+    }
+
+    /* Floating hearts */
+    .heart {
+      position: fixed;
+      font-size: 20px;
+      animation: floatUp 6s ease-in infinite;
+      opacity: 0;
+      pointer-events: none;
+      z-index: 9999;
+    }
+
+    @keyframes floatUp {
+      0% {
+        transform: translateY(0) rotate(0deg);
+        opacity: 0;
+      }
+      10% {
+        opacity: 1;
+      }
+      90% {
+        opacity: 1;
+      }
+      100% {
+        transform: translateY(-100vh) rotate(360deg);
+        opacity: 0;
+      }
+    }
+
+    /* Confetti effect for modal */
+    .confetti {
+      position: fixed;
+      width: 10px;
+      height: 10px;
+      background: #ff4b7d;
+      opacity: 0;
+      animation: confettiFall 3s ease-out;
+      pointer-events: none;
+      z-index: 9998;
+    }
+
+    @keyframes confettiFall {
+      0% {
+        transform: translateY(0) rotate(0deg);
+        opacity: 1;
+      }
+      100% {
+        transform: translateY(100vh) rotate(720deg);
+        opacity: 0;
+      }
+    }
+
+    @keyframes fadeIn {
+      from { opacity: 0; transform: translateY(4px); }
+      to { opacity: 1; transform: translateY(0); }
+    }
+
+    @keyframes slideUp {
+      from { opacity: 0; transform: translateY(30px); }
+      to { opacity: 1; transform: translateY(0); }
+    }
+
+    @media (max-width: 600px) {
+      .wrapper {
+        padding: 22px 14px 30px;
+      }
+      h1.title {
+        font-size: 22px;
+      }
+    }
+  </style>
+</head>
+<body>
+  <div class="wrapper">
+    <h1 class="title">Website to My Love</h1>
+    <p class="subtitle">
+      Happy Birthday, my love 💖 – made with love on 1 December.
+    </p>
+
+    <div class="card">
+      <h2>Happy Birthday Sathish! 🎂</h2>
+      <small>I have a special surprise for you...</small>
+      
+      <div class="envelope-container">
+        <div class="envelope" onclick="openModal()">
+          <div class="envelope-back">
+            <div class="envelope-flap"></div>
+            <div class="envelope-seal">OPEN</div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Modal for Love Letter -->
+  <div class="modal" id="letterModal">
+    <div class="modal-content">
+      <button class="close-btn" onclick="closeModal()">&times;</button>
+      
+      <!-- Love Letter -->
+      <h2 style="color: #ff4b7d; margin-bottom: 10px;">To My Husband</h2>
+      <small style="color: #999;">From your wife, with all my heart</small>
+      <p class="love-letter">
+Dear Sathish,
+
+Happy Birthday! 🎂💕
+
+Thank you for being my best friend, my safe place, and my biggest support.
+This little website is my small surprise for you, to say:
+
+I love you when you smile,
+I love you when you are tired,
+I love you even on the days that feel heavy.
+
+I'm so grateful to walk this life with you.
+Let's keep laughing, fighting together, and building our dreams side by side.
+
+With all my love,
+Lakshmi
+      </p>
+
+      <!-- Notes -->
+      <div style="margin-top: 30px;">
+        <h2 style="color: #ff4b7d; margin-bottom: 10px;">Little things I love about you</h2>
+        <small style="color: #999;">Small moments, big love</small>
+        <ul class="note-list">
+          <li>The way you smile when you see our family.</li>
+          <li>How hard you work for us, even when you are tired.</li>
+          <li>Your silly jokes that only we understand.</li>
+          <li>The way you listen when I'm worried.</li>
+          <li>How you make every normal day feel special.</li>
+        </ul>
+      </div>
+
+      <!-- Gallery -->
+      <div style="margin-top: 30px;">
+        <h2 style="color: #ff4b7d; margin-bottom: 10px;">Our Memories</h2>
+        <small style="color: #999;">Special moments with you 📷</small>
+        <div class="gallery">
+          <div class="gallery-item">
+            <img src="photo1.jpg.jpeg" alt="Memory 1">
+            <span>Our special moment</span>
+          </div>
+          <div class="gallery-item">
+            <img src="photo2.jpg.jpeg" alt="Memory 2">
+            <span>Together forever</span>
+          </div>
+          <div class="gallery-item">
+            <img src="photo3.jpg.jpeg" alt="Memory 3">
+            <span>Happy times</span>
+          </div>
+          <div class="gallery-item">
+            <img src="photo4.jpg.jpeg" alt="Memory 4">
+            <span>Love you always</span>
+          </div>
+          <div class="gallery-item">
+            <img src="photo5.jpg.jpeg" alt="Memory 5">
+            <span>Beautiful memories</span>
+          </div>
+          <div class="gallery-item">
+            <img src="photo6.jpg.jpeg" alt="Memory 6">
+            <span>Forever with you</span>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <script>
+    // Create floating hearts continuously
+    function createHeart() {
+      const heart = document.createElement('div');
+      heart.className = 'heart';
+      heart.innerHTML = ['❤️', '💕', '💖', '💗', '💓'][Math.floor(Math.random() * 5)];
+      heart.style.left = Math.random() * 100 + 'vw';
+      heart.style.animationDuration = (Math.random() * 3 + 4) + 's';
+      heart.style.fontSize = (Math.random() * 20 + 15) + 'px';
+      document.body.appendChild(heart);
+      
+      setTimeout(() => {
+        heart.remove();
+      }, 6000);
+    }
+
+    // Generate hearts every 800ms
+    setInterval(createHeart, 800);
+
+    // Create confetti burst
+    function createConfetti() {
+      const colors = ['#ff4b7d', '#ff5c8a', '#ffc7da', '#ffb6c9', '#ff9ec4'];
+      for (let i = 0; i < 50; i++) {
+        setTimeout(() => {
+          const confetti = document.createElement('div');
+          confetti.className = 'confetti';
+          confetti.style.left = Math.random() * 100 + 'vw';
+          confetti.style.top = '0';
+          confetti.style.background = colors[Math.floor(Math.random() * colors.length)];
+          confetti.style.width = Math.random() * 10 + 5 + 'px';
+          confetti.style.height = confetti.style.width;
+          confetti.style.borderRadius = Math.random() > 0.5 ? '50%' : '0';
+          document.body.appendChild(confetti);
+          
+          setTimeout(() => confetti.remove(), 3000);
+        }, i * 30);
+      }
+    }
+
+    // Modal functions
+    function openModal() {
+      const envelope = document.querySelector('.envelope');
+      envelope.classList.add('open');
+      
+      // Create confetti burst
+      createConfetti();
+      
+      setTimeout(() => {
+        document.getElementById("letterModal").classList.add("active");
+        envelope.classList.remove('open');
+      }, 500);
+    }
+
+    function closeModal() {
+      document.getElementById("letterModal").classList.remove("active");
+    }
+
+    // Close modal when clicking outside
+    document.getElementById("letterModal").addEventListener("click", function(e) {
+      if (e.target === this) {
+        closeModal();
+      }
+    });
+  </script>
+</body>
+</html>
